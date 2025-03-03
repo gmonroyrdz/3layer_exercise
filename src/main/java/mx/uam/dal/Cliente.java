@@ -54,6 +54,7 @@ public class Cliente {
         this.age = age;
     }
 
+    @Override
     public String toString(){
         StringBuilder str = new StringBuilder();
                 String sep = "\n";

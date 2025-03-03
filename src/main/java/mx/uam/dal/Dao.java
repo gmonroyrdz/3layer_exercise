@@ -1,6 +1,6 @@
 package mx.uam.dal;
 
-public interface EntityDao<T> {
+public interface Dao<T> {
     public void getAll();
     public int save(T entity);
     public void update(T entity);

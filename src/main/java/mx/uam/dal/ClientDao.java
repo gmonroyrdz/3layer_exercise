@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientDao implements EntityDao{
+public class ClientDao implements EntityDao<Cliente>{
 
     private Connection connection;
 
@@ -43,6 +43,7 @@ public class ClientDao implements EntityDao{
     }
 
     //public int save(String username, String name, String lastname, String age) {
+    @Override
     public int save(Cliente cliente){
         try {
             // Definimos la sentencia SQL
@@ -62,18 +63,18 @@ public class ClientDao implements EntityDao{
         return -1;
     }
 
-    /**
-     * 
-     * @param cliente
-     */
+    
+    @Override
     public void update(Cliente cliente){
         
     }
 
+    @Override
     public boolean delete(int id){
         return false;
     }
 
+    @Override
     public boolean delete(Cliente cliente){
         return false;
     }
