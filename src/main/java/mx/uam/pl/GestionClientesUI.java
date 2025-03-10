@@ -4,10 +4,13 @@ import mx.uam.bl.GestorClientes;
 import mx.uam.dal.entities.Cliente;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+
+import mx.uam.bl.dto.ClienteDto;
 
 public class GestionClientesUI extends JFrame {
     private GestorClientes gestionClientes;
@@ -71,9 +74,9 @@ public class GestionClientesUI extends JFrame {
     }
 
     private void loadClients() {
-        List<Cliente> clientes = gestionClientes.getAllClients();
+        List<ClienteDto> clientes = gestionClientes.getAllClients();
         textArea.setText("");
-        for (Cliente cliente : clientes) {
+        for (ClienteDto cliente : clientes) {
             textArea.append(cliente.toString() + "\n");
         }
     }
@@ -84,7 +87,7 @@ public class GestionClientesUI extends JFrame {
         String lastname = JOptionPane.showInputDialog(this, "Lastname:");
         String age = JOptionPane.showInputDialog(this, "Age:");
         Cliente cliente = new Cliente(username, name, lastname, age);
-        Cliente savedCliente = gestionClientes.agregarCliente(cliente);
+        ClienteDto savedCliente = gestionClientes.agregarCliente(cliente);
         if (savedCliente != null) {
             JOptionPane.showMessageDialog(this, "Cliente agregado: " + savedCliente);
             loadClients();
@@ -101,7 +104,7 @@ public class GestionClientesUI extends JFrame {
         String age = JOptionPane.showInputDialog(this, "Nuevo Age:");
         Cliente cliente = new Cliente(username, name, lastname, age);
         cliente.setId(id);
-        Cliente updatedCliente = gestionClientes.agregarCliente(cliente);
+        ClienteDto updatedCliente = gestionClientes.agregarCliente(cliente);
         if (updatedCliente != null) {
             JOptionPane.showMessageDialog(this, "Cliente actualizado: " + updatedCliente);
             loadClients();
