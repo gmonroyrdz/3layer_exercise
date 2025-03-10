@@ -42,6 +42,34 @@ public class ClientDao implements EntityDao<Cliente>{
         }
     }
 
+    public Cliente getByExample(Cliente cliente){
+        try {
+           
+            String sql = "SELECT * from cliente WHERE username=? or name=? or lastname=? or age=?";
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
+            stmt.setString(1, cliente.getUsername());
+            stmt.setString(2,cliente.getName());
+            stmt.setString(3, cliente.getLastname());
+            stmt.setString(4, cliente.getAge());
+            ResultSet rs = stmt.executeQuery(sql);
+            Cliente found = null;
+            while (rs.next()) {
+                found = new Cliente();
+                found.setId(rs.getInt(1));
+                found.setUsername(rs.getString(2));
+                found.setName(rs.getString(3));
+                found.setLastname(rs.getString(4));
+                found.setAge(rs.getString(5));
+                System.out.println(found.toString());
+            }
+            return found;
+
+        } catch (SQLException e) {
+            System.err.println("Ocurrió un error en la consulta: "+ e.getMessage());
+            return null;
+        }
+    }
+
     //public int save(String username, String name, String lastname, String age) {
     @Override
     public int save(Cliente cliente){

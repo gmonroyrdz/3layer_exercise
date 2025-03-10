@@ -15,11 +15,17 @@ public class Ex1 {
 
     public static void main(String[] args) {
         ClientDao clientDao = new ClientDao();
-        clientDao.getAll();
-        System.out.println("ANTES DEL NUEVO REGISTRO");
-        Cliente cliente = new Cliente("luisN", "Luis", "Narvarte", "50");
-        clientDao.save(cliente);
-        clientDao.getAll();
+        //clientDao.getAll();
+        //System.out.println("ANTES DEL NUEVO REGISTRO");
+        //Cliente cliente = new Cliente("luisN", "Luis", "Narvarte", "50");
+        //clientDao.save(cliente);
+        //clientDao.getAll();
+
+        Cliente cliente = new Cliente("gmonroy", "Luis", "Narvarte", "50");
+        Cliente found =  clientDao.getByExample(cliente);
+        System.out.println(found);
+
+        
 
     }
 }
