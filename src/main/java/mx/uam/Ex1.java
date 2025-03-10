@@ -4,8 +4,8 @@
 
 package mx.uam;
 
-import mx.uam.dal.ClientDao;
-import mx.uam.dal.entities.Cliente;
+import mx.uam.pl.GestionClientesUI;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -14,6 +14,8 @@ import mx.uam.dal.entities.Cliente;
 public class Ex1 {
 
     public static void main(String[] args) {
+        // Commenting out the existing content
+        /*
         ClientDao clientDao = new ClientDao();
 
         // Test save() method
@@ -48,6 +50,15 @@ public class Ex1 {
         for (Cliente c : clientDao.getAll()) {
             System.out.println(c);
         }
+        */
+
+        // Launching GestionClientesUI
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new GestionClientesUI().setVisible(true);
+            }
+        });
     }
 }
 
