@@ -1,21 +1,48 @@
 package mx.uam.dal;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DbConnection {
 
-    private String database = "jdbc:mysql://";
-    private String host = "localhost";
-    private String port = "3306";
-    private String scheme = "shop";
-    private String user ="root";
-    private String pass = "7vvlryPngn";
+    private String database;
+    private String host;
+    private String port;
+    private String scheme;
+    private String user;
+    private String pass;
 
     private Connection connection;
 
-    private String getStringConnection(){
+    public DbConnection() {
+        loadProperties();
+    }
+
+    private void loadProperties() {
+        Properties properties = new Properties();
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("db.properties")) {
+            if (input == null) {
+                System.out.println("Sorry, unable to find db.properties");
+                return;
+            }
+            properties.load(input);
+            database = properties.getProperty("database");
+            host = properties.getProperty("host");
+            port = properties.getProperty("port");
+            scheme = properties.getProperty("scheme");
+            user = properties.getProperty("user");
+            pass = properties.getProperty("pass");
+        } catch (IOException ex) {
+            System.err.println("IOException: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+    private String getStringConnection() {
         StringBuilder str = new StringBuilder();
         str.append(database);
         str.append(host);
@@ -26,24 +53,23 @@ public class DbConnection {
         return str.toString();
     }
 
-    public void connect(){
+    public void connect() {
         try {
             String stringConnection = getStringConnection();
-            this.connection = DriverManager. getConnection(stringConnection,user,pass);
+            this.connection = DriverManager.getConnection(stringConnection, user, pass);
         } catch (SQLException e) {
-            System.err.println(e.getStackTrace());
+            System.err.println("SQLException: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    public Connection getConnection(){
+    public Connection getConnection() {
         return this.connection;
     }
 
-    public void disconnect() throws SQLException{
-        if (this.connection != null){
+    public void disconnect() throws SQLException {
+        if (this.connection != null) {
             this.connection.close();
         }
     }
-
-    
 }

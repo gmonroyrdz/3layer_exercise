@@ -19,7 +19,7 @@ public class ClientDao implements EntityDao<Cliente>{
     }
 
     @Override
-    public void getAll() {
+    public List<Cliente> getAll() {
         try {
             List<Cliente> clientes = new ArrayList<>();
 
@@ -34,78 +34,106 @@ public class ClientDao implements EntityDao<Cliente>{
                 cliente.setName(rs.getString(3));
                 cliente.setLastname(rs.getString(4));
                 cliente.setAge(rs.getString(5));
-                clientes.add(cliente);
-                System.out.println(cliente.toString());
+                clientes.add(cliente);                
             }
-        } catch (SQLException e) {
-            System.err.println(e.getStackTrace());
-        }
-    }
-
-    public Cliente getByExample(Cliente cliente){
-        try {
-           
-            String sql = "SELECT * from cliente WHERE username=? or name=? or lastname=? or age=?";
-            PreparedStatement stmt = this.connection.prepareStatement(sql);
-            stmt.setString(1, cliente.getUsername());
-            stmt.setString(2,cliente.getName());
-            stmt.setString(3, cliente.getLastname());
-            stmt.setString(4, cliente.getAge());
-            ResultSet rs = stmt.executeQuery(sql);
-            Cliente found = null;
-            while (rs.next()) {
-                found = new Cliente();
-                found.setId(rs.getInt(1));
-                found.setUsername(rs.getString(2));
-                found.setName(rs.getString(3));
-                found.setLastname(rs.getString(4));
-                found.setAge(rs.getString(5));
-                System.out.println(found.toString());
-            }
-            return found;
-
-        } catch (SQLException e) {
-            System.err.println("Ocurrió un error en la consulta: "+ e.getMessage());
+            return  clientes;
+          } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
 
-    //public int save(String username, String name, String lastname, String age) {
-    @Override
-    public int save(Cliente cliente){
+    public List<Cliente> getByExample(Cliente cliente){
+        List<Cliente> foundClientes = new ArrayList<>();
         try {
-            // Definimos la sentencia SQL
-            String sql = "INSERT INTO cliente VALUES(0,?,?,?,?)";
-            // Creación de la sentencia (Statement)
+            String sql = "SELECT * from cliente WHERE username=? or name=? or lastname=? or age=?";
             PreparedStatement stmt = this.connection.prepareStatement(sql);
             stmt.setString(1, cliente.getUsername());
             stmt.setString(2, cliente.getName());
             stmt.setString(3, cliente.getLastname());
             stmt.setString(4, cliente.getAge());
-            stmt.execute();
-
-            return -1;
-        } catch (SQLException ex) {
-            System.err.println(ex.getStackTrace());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Cliente found = new Cliente();
+                found.setId(rs.getInt(1));
+                found.setUsername(rs.getString(2));
+                found.setName(rs.getString(3));
+                found.setLastname(rs.getString(4));
+                found.setAge(rs.getString(5));
+                foundClientes.add(found);
+                //System.out.println(found.toString());
+            }
+        } catch (SQLException e) {
+            System.err.println("Ocurrió un error en la consulta: " + e.getMessage());
+            e.printStackTrace();
         }
-        return -1;
+        return foundClientes;
     }
 
-    
     @Override
-    public void update(Cliente cliente){
-        
+    public Cliente save(Cliente cliente){
+        try {
+            String sql = "INSERT INTO cliente (username, name, lastname, age) VALUES(?,?,?,?)";
+            PreparedStatement stmt = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, cliente.getUsername());
+            stmt.setString(2, cliente.getName());
+            stmt.setString(3, cliente.getLastname());
+            stmt.setString(4, cliente.getAge());
+            stmt.executeUpdate();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            if(rs.next()){
+                cliente.setId(rs.getInt(1));
+                return cliente;
+            }
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Cliente update(Cliente cliente){
+        try {
+            String sql = "UPDATE cliente SET username=?, name=?, lastname=?, age=? WHERE id=?";
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
+            stmt.setString(1, cliente.getUsername());
+            stmt.setString(2, cliente.getName());
+            stmt.setString(3, cliente.getLastname());
+            stmt.setString(4, cliente.getAge());
+            stmt.setInt(5, cliente.getId());
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                return cliente;
+            }
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public boolean delete(int id){
+        try {
+            String sql = "DELETE FROM cliente WHERE id=?";
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+            int rowsAffected = stmt.executeUpdate();
+
+            return rowsAffected > 0;
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+            ex.printStackTrace();
+        }
         return false;
     }
 
     @Override
     public boolean delete(Cliente cliente){
-        return false;
+        return delete(cliente.getId());
     }
-
-
 }
