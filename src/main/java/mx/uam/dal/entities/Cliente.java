@@ -1,4 +1,4 @@
-package mx.uam.dal;
+package mx.uam.dal.entities;
 
 public class Cliente {
     private int id;

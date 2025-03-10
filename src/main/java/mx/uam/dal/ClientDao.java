@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.uam.dal.entities.Cliente;
+
 public class ClientDao implements EntityDao<Cliente>{
 
     private Connection connection;

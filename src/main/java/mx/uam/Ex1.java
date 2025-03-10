@@ -5,7 +5,7 @@
 package mx.uam;
 
 import mx.uam.dal.ClientDao;
-import mx.uam.dal.Cliente;
+import mx.uam.dal.entities.Cliente;
 
 /**
  *
@@ -34,7 +34,7 @@ public class Ex1 {
 
         // Test getAll() method again
         System.out.println("All clients after update:");
-        
+
         for (Cliente c : clientDao.getAll()) {
             System.out.println(c);
         }
