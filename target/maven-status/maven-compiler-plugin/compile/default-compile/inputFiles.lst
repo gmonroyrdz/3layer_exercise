@@ -1,0 +1,12 @@
+/Lilith/UAM/UAMC/Laboratorio Temático I/3layer_exercise/src/main/java/mx/uam/dal/entities/Cliente.java
+/Lilith/UAM/UAMC/Laboratorio Temático I/3layer_exercise/src/main/java/mx/uam/bl/GestorClientes.java
+/Lilith/UAM/UAMC/Laboratorio Temático I/3layer_exercise/src/main/java/mx/uam/Main.java
+/Lilith/UAM/UAMC/Laboratorio Temático I/3layer_exercise/src/main/java/mx/uam/dal/ClientDao.java
+/Lilith/UAM/UAMC/Laboratorio Temático I/3layer_exercise/src/main/java/mx/uam/dal/Dao.java
+/Lilith/UAM/UAMC/Laboratorio Temático I/3layer_exercise/src/main/java/mx/uam/bl/dto/ClienteDto.java
+/Lilith/UAM/UAMC/Laboratorio Temático I/3layer_exercise/src/main/java/mx/uam/dal/EntityDao.java
+/Lilith/UAM/UAMC/Laboratorio Temático I/3layer_exercise/src/main/java/mx/uam/dal/DbConnection.java
+/Lilith/UAM/UAMC/Laboratorio Temático I/3layer_exercise/src/main/java/mx/uam/resource/UserResource.java
+/Lilith/UAM/UAMC/Laboratorio Temático I/3layer_exercise/src/main/java/mx/uam/dal/entities/Domicilio.java
+/Lilith/UAM/UAMC/Laboratorio Temático I/3layer_exercise/src/main/java/mx/uam/pl/GestionClientesUI.java
+/Lilith/UAM/UAMC/Laboratorio Temático I/3layer_exercise/src/main/java/mx/uam/config/OpenApiConfig.java

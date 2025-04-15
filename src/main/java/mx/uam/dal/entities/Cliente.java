@@ -1,10 +1,17 @@
 package mx.uam.dal.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Cliente {
+    @JsonProperty("id")
     private int id;
-    private String username;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("username")
+    private String username;   
+    @JsonProperty("lastname")
     private String lastname;
+    @JsonProperty("age")
     private String age;
     
     public Cliente() {
@@ -53,6 +60,7 @@ public class Cliente {
     public void setAge(String age) {
         this.age = age;
     }
+
 
     @Override
     public String toString(){
