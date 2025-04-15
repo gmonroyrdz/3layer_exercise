@@ -38,6 +38,7 @@
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>3.1.2</version>
         </dependency>
+        
 
         <!-- Jakarta Servlet API -->
         <dependency>
