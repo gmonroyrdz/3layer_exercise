@@ -1,5 +1,6 @@
 package mx.uam.bl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mx.uam.bl.dto.ClienteDto;
@@ -49,7 +50,24 @@ public class GestorClientes {
     }
 
     public List<ClienteDto> getAllClients() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<Cliente> clientes = clienteDao.getAll();
+        List<ClienteDto> clientesDto = new ArrayList<>();
+
+        for (Cliente cliente : clientes) {
+            ClienteDto dto = new ClienteDto();
+            dto.setName(cliente.getName());
+            dto.setLastname(cliente.getLastname());
+            dto.setAge(cliente.getAge());
+            // Add other properties as needed
+            clientesDto.add(dto);
+        }
+        return clientesDto;
+
+    }
+
+    public Cliente getUser(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getUser'");
     }
 
 }

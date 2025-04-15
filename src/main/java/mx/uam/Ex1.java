@@ -4,8 +4,10 @@
 
 package mx.uam;
 
-import mx.uam.pl.GestionClientesUI;
-import javax.swing.SwingUtilities;
+import java.net.URI;
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.server.ResourceConfig;
 
 /**
  *
@@ -13,46 +15,10 @@ import javax.swing.SwingUtilities;
  */
 public class Ex1 {
 
+
+    /*
     public static void main(String[] args) {
-        // Commenting out the existing content
-        /*
-        ClientDao clientDao = new ClientDao();
-
-        // Test save() method
-        Cliente cliente = new Cliente("luisN", "Luis", "Narvarte", "50");
-        Cliente insertado = clientDao.save(cliente);
-        System.out.println("Inserted: " + insertado);
-
-        // Test getAll() method
-        System.out.println("All clients:");
-        for (Cliente c : clientDao.getAll()) {
-            System.out.println(c);
-        }
-
-        // Test update() method
-        insertado.setName("Luis Updated");
-        Cliente actualizado = clientDao.update(insertado);
-        System.out.println("Updated: " + actualizado);
-
-        // Test getAll() method again
-        System.out.println("All clients after update:");
-
-        for (Cliente c : clientDao.getAll()) {
-            System.out.println(c);
-        }
-
-        // Test delete() method
-        boolean deleted = clientDao.delete(insertado.getId());
-        System.out.println("Deleted: " + deleted);
-
-        // Test getAll() method again
-        System.out.println("All clients after delete:");
-        for (Cliente c : clientDao.getAll()) {
-            System.out.println(c);
-        }
-        */
-
-        // Launching GestionClientesUI
+         // Launching GestionClientesUI
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -60,6 +26,20 @@ public class Ex1 {
             }
         });
     }
+    */
+
+    public static final String BASE_URI = "http://localhost:8080/api/";
+
+    public static HttpServer startServer() {
+        final ResourceConfig rc = new ResourceConfig().packages("mx.uam.resource");
+        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+    }
+
+    public static void main(String[] args) {
+        final HttpServer server = startServer();
+        System.out.println("Servidor iniciado en " + BASE_URI);
+    }
+
 }
 
 

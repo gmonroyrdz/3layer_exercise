@@ -138,4 +138,13 @@ public class ClientDao implements EntityDao<Cliente>{
     public boolean delete(Cliente cliente){
         return delete(cliente.getId());
     }
+
+    public static void main(String[] args) {
+        ClientDao clientDao = new ClientDao();
+        // Test getAll
+        List<Cliente> clientes = clientDao.getAll();
+        for (Cliente cliente : clientes) {
+            System.out.println(cliente);
+        }
+    }
 }
