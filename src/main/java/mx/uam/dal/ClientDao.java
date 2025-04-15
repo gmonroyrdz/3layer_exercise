@@ -147,4 +147,26 @@ public class ClientDao implements EntityDao<Cliente>{
             System.out.println(cliente);
         }
     }
+
+    public Cliente getById(int id) {
+        try {
+            String sql = "SELECT * FROM cliente WHERE id=?";
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setId(rs.getInt(1));
+                cliente.setUsername(rs.getString(2));
+                cliente.setName(rs.getString(3));
+                cliente.setLastname(rs.getString(4));
+                cliente.setAge(rs.getString(5));
+                return cliente;
+            }
+        } catch (SQLException e) {
+            System.err.println("SQLException: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

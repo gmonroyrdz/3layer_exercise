@@ -1,6 +1,14 @@
 package mx.uam.bl.dto;
 
 public class ClienteDto {
+    private int id;
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private String name;
     private String lastname;
     private String Age;

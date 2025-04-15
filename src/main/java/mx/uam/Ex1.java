@@ -37,7 +37,7 @@ public class Ex1 {
 
     public static void main(String[] args) {
         final HttpServer server = startServer();
-        System.out.println("Servidor iniciado en " + BASE_URI);
+        System.out.println("Servidor iniciado en " + BASE_URI + "clients");
     }
 
 }

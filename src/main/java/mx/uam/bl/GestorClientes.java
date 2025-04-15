@@ -12,11 +12,7 @@ public class GestorClientes {
     ClientDao clienteDao = new ClientDao();
 
     public ClienteDto agregarCliente(Cliente cliente) {
-        
-
         Cliente savedClient = clienteDao.save(cliente);
-
-       
         return new ClienteDto();
     }
 
@@ -55,6 +51,7 @@ public class GestorClientes {
 
         for (Cliente cliente : clientes) {
             ClienteDto dto = new ClienteDto();
+            dto.setId(cliente.getId());
             dto.setName(cliente.getName());
             dto.setLastname(cliente.getLastname());
             dto.setAge(cliente.getAge());
@@ -65,9 +62,8 @@ public class GestorClientes {
 
     }
 
-    public Cliente getUser(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUser'");
+    public Cliente getUser(int id) {        
+        return clienteDao.getById(id);
     }
 
 }
