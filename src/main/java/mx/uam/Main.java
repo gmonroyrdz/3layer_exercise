@@ -5,6 +5,8 @@
 package mx.uam;
 
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
+import mx.uam.resource.CorsFilter;
+
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -21,12 +23,12 @@ public class Main {
         // Configuración de recursos
         final ResourceConfig config = new ResourceConfig()
                 .packages("mx.uam.resource") // Paquete donde están tus recursos
-                .register(OpenApiResource.class); // Registro de Swagger OpenAPI
+                .register(OpenApiResource.class) // Registro de Swagger OpenAPI
+                .register(CorsFilter.class); // Registro del filtro CORS
   
 
         HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), config);
-        // Servir archivos estáticos de Swagger UI en /docs
-        //StaticHttpHandler staticHandler = new StaticHttpHandler("src/main/resources/swagger-ui");
+        // Servir archivos estáticos de Swagger UI en /docs        
         StaticHttpHandler staticHandler = new StaticHttpHandler(new File("src/main/resources/swagger-ui/").getAbsolutePath());
         staticHandler.setFileCacheEnabled(false); // (opcional para desarrollo)
         
